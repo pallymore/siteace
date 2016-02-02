@@ -1,0 +1,15 @@
+<template name="rating_buttons">
+  <div class="rating-btns">
+    <a href="#" class="btn btn-success js-upvote">
+      <i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i>
+      {{upvotesCount}}
+    </a>
+    <a href="#" class="btn btn-default js-downvote">
+      <i class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></i>
+      {{downvotesCount}}
+    </a>
+    {{#if errorMessage}}
+      <span class="text-danger">{{errorMessage}}</span>
+    {{/if}}
+  </div>
+</template>

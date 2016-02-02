@@ -1,0 +1,42 @@
+<template name="website_form">
+	<a class="btn btn-success js-toggle-website-form" href="#">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    Add New
+	</a>
+
+  <div id="website_form" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Add A New Website</h4>
+        </div>
+        <form class="js-save-website-form">
+          <div class="modal-body">
+            {{#if errorMessage}}
+              <div class="alert alert-danger" role="alert">{{errorMessage}}</div>
+            {{/if}}
+            <div class="form-group">
+              <label for="url">Site Address</label>
+              <input type="text" class="form-control" id="url" placeholder="http://www.mysite.com">
+            </div>
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" class="form-control" id="title" placeholder="Mysite">
+            </div>
+              <div class="form-group">
+              <label for="description">Description</label>
+              <input type="text" class="form-control" id="description" placeholder="I found this site really useful for ...">
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
+

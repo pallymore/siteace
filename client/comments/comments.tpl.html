@@ -1,0 +1,12 @@
+<template name="comments">
+  <h4>Comments</h4>
+  {{#if currentUser}}
+    {{> comment_form}}
+  {{else}}
+    <div class="alert alert-warning" role="alert">
+      Please login to post a comment.
+    </div>
+  {{/if}}
+  <hr />
+  {{> comments_list}}
+</template>

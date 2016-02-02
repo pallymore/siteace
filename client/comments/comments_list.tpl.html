@@ -1,0 +1,21 @@
+<template name="comments_list">
+  {{#each comments}}
+    {{> comment_item}}
+  {{/each}}
+</template>
+
+<template name="comment_item">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <p class="text-muted">
+        <strong>{{commenter}}</strong> said:
+        <em class="text-muted pull-right comment-date">
+          {{createdOn}}
+        </em>
+      </p>
+      <p>
+        {{body}}
+      </p>
+    </div>
+  </div>
+</template>

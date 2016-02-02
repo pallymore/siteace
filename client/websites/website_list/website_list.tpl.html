@@ -1,0 +1,9 @@
+<!-- template that displays several website items -->
+<template name="website_list">
+	<ol class="website-list">
+    {{#each websites}}
+      {{>website_item}}
+    {{/each}}
+	</ol>
+</template>
+

@@ -1,0 +1,21 @@
+<template name="website">
+  <div class="container">
+    <a href="/websites" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Back
+    </a>
+    <hr />
+    <h1>{{title}}</h1>
+    <p>
+      <a href="{{url}}" target="_blank" title="{{title}}">{{url}}</a>
+    </p>
+    <blockquote>
+      {{description}}
+    </blockquote>
+    <p>
+      {{> rating_buttons}}
+    </p>
+    <hr />
+    {{> comments}}
+  </div>
+</template>
