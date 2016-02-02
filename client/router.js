@@ -15,8 +15,16 @@ Router.route('/websites', function () {
   this.render('websites', {
     to: "main",
     data: function () {
+      var websites = Websites.find({});
+
+      websites = _.sortBy(websites.map(function (website) {
+        return _.extend({}, website, {
+          upvotesCount: Votes.find({ website_id: website._id, upvote: true }).count()
+        });
+      }), function (website) { return -website.upvotesCount; });
+
       return {
-        websites: Websites.find({}, { sort: { upvotesCount: -1} })
+        websites: websites
       };
     }
   });
