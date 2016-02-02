@@ -40,5 +40,21 @@ Template.website_form.events({
     }
 
     return false;
+  },
+  "blur #url": function (event, template) {
+    var url = event.target.value;
+
+    if (url && url.length > 0) {
+      template.errorMessage.set(null);
+      Meteor.call('getWebsiteDetails', url, function (err, obj) {
+        if (err) {
+          template.errorMessage.set(err.details);
+          return false;
+        }
+
+        $('#title').val(obj.title);
+        $('#description').val(obj.description);
+      });
+    }
   }
 });
