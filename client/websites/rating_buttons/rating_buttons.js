@@ -6,10 +6,12 @@ Template.rating_buttons.created = function () {
   this.errorMessage = new ReactiveVar(null);
 };
 
-// TODO: display color by vote type
+function findUserVote(user_id, website_id) {
+  return Votes.findOne({ website_id: website_id, user_id: user_id });
+}
 
 function handleVote(user_id, website_id, isUpvote) {
-  var existingVote = Votes.findOne({ website_id: website_id, user_id: user_id });
+  var existingVote = findUserVote(user_id, website_id);
 
   if(!existingVote) {
     Votes.insert({
@@ -22,7 +24,6 @@ function handleVote(user_id, website_id, isUpvote) {
   }
 
   if(existingVote.upvote !== isUpvote) {
-    setErrorMessage(this, 'Your vote has been updated.');
     Votes.update({
       _id: existingVote._id
     }, { $set: {
@@ -39,30 +40,28 @@ function handleVote(user_id, website_id, isUpvote) {
 
 Template.rating_buttons.events({
   "click .js-upvote" : function (event, template){
-    var website_id = this._id,
-      currentUser = Meteor.user();
+    var website_id = this._id;
 
     setErrorMessage(template, null);
 
-    if (!currentUser) {
+    if (!currentUserId()) {
       setErrorMessage(template, 'Please login to vote');
       return false;
     }
 
-    return handleVote.call(template, currentUser._id, website_id, true);
+    return handleVote.call(template, currentUserId(), website_id, true);
   },
   "click .js-downvote": function (event, template){
-    var website_id = this._id,
-      currentUser = Meteor.user();
+    var website_id = this._id;
 
     setErrorMessage(template, null);
 
-    if (!currentUser) {
+    if (!currentUserId()) {
       setErrorMessage(template, 'Please login to vote');
       return false;
     }
 
-    return handleVote.call(template, currentUser._id, website_id, false);
+    return handleVote.call(template, currentUserId(), website_id, false);
   }
 });
 
@@ -81,6 +80,16 @@ Template.rating_buttons.helpers({
   },
   errorMessage: function () {
     return Template.instance().errorMessage.get();
+  },
+  upvoteBtnClass: function () {
+    var existingVote = findUserVote(currentUserId(), this._id);
+
+    return (existingVote && existingVote.upvote) ? 'btn-success' : 'btn-default';
+  },
+  downvoteBtnClass: function () {
+    var existingVote = findUserVote(currentUserId(), this._id);
+
+    return (existingVote && !existingVote.upvote) ? 'btn-danger' : 'btn-default';
   }
 });
 
