@@ -3,7 +3,6 @@ Router.configure({
   waitOn: function () {
     return [
       Meteor.subscribe("allUserData"),
-      Meteor.subscribe('websites'),
       Meteor.subscribe('votes')
     ];
   }
@@ -17,20 +16,7 @@ Router.route('/', function () {
 
 Router.route('/websites', function () {
   this.render('websites', {
-    to: "main",
-    data: function () {
-      var websites = Websites.find({});
-
-      websites = _.sortBy(websites.map(function (website) {
-        return _.extend({}, website, {
-          upvotesCount: Votes.find({ website_id: website._id, upvote: true }).count()
-        });
-      }), function (website) { return -website.upvotesCount; });
-
-      return {
-        websites: websites
-      };
-    }
+    to: "main"
   });
 });
 
@@ -40,6 +26,7 @@ Router.route('/websites/:_id', function () {
     data: function () {
       var websiteId = this.params._id;
       Meteor.subscribe("comments", this.params._id);
+      Meteor.subscribe("website", this.params._id);
 
       return _.extend({},
                       Websites.findOne({_id: websiteId}),

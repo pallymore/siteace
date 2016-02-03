@@ -1,12 +1,19 @@
 <template name="websites">
 	<div class="container">
-    {{#if currentUser}}
-      {{> website_form}}
-    {{else}}
-      <div class="alert alert-warning" role="alert">
-        You need to login to post new websites.
+    <div class="row">
+      <div class="col-md-6">
+        {{#if currentUser}}
+          {{> website_form}}
+        {{else}}
+          <div class="alert alert-warning" role="alert">
+            You need to login to post new websites.
+          </div>
+        {{/if}}
       </div>
-    {{/if}}
+      <div class="col-md-6">
+        {{> search_form}}
+      </div>
+    </div>
     {{> website_list}}
 	</div>
 </template>

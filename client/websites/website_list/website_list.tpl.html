@@ -1,9 +1,19 @@
 <!-- template that displays several website items -->
 <template name="website_list">
 	<ol class="website-list">
-    {{#each websites}}
-      {{>website_item}}
-    {{/each}}
+    {{#if hasResults websites}}
+      {{#each orderedWebsites websites}}
+        {{>website_item}}
+      {{/each}}
+    {{else}}
+      <hr />
+      <div class="jumbotron">
+        {{#if searchKeyword}}
+          <p>Nothing was found for your search criteria: <strong>{{searchKeyword}}</strong></p>
+        {{else}}
+          <p>There are no websites to show. :'(</p>
+        {{/if}}
+      </div>
+    {{/if}}
 	</ol>
 </template>
-

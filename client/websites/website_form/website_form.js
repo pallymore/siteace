@@ -3,6 +3,7 @@ Template.website_form.created = function () {
   this.resetForm = function () {
     this.errorMessage.set(null);
     $('#website_form input').val('');
+    $('#description').val('');
   };
 };
 

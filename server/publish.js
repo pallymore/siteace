@@ -2,8 +2,24 @@ Meteor.publish("allUserData", function () {
   return Meteor.users.find({}, {fields: {'_id': 1, 'emails': 1}});
 });
 
-Meteor.publish("websites", function () {
-  return Websites.find({});
+Meteor.publish("website", function (id) {
+  return Websites.find({_id: id});
+});
+
+Meteor.publish("websites", function (searchKeyword) {
+  if (!searchKeyword) {
+    return Websites.find({});
+  }
+
+  return Websites.find(
+    {
+      $text: { $search: searchKeyword }
+    },
+    {
+      fields: { score: { $meta: "textScore" } },
+      sort: { score: { $meta: "textScore" } }
+    }
+  );
 });
 
 Meteor.publish("votes", function () {

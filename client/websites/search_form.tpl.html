@@ -1,0 +1,18 @@
+<template name="search_form">
+  <form action="/websites" method="GET" id="js-search-form">
+    <div class="input-group">
+      {{#if keyword}}
+        <span class="input-group-btn">
+          <button class="btn btn-danger js-reset-search-btn" type="button">Reset</button>
+        </span>
+      {{/if}}
+      <input type="text" class="form-control"
+                         name="keyword"
+                         id="keyword" value="{{keyword}}"
+        placeholder="Search by title or description...">
+      <span class="input-group-btn">
+        <input class="btn btn-primary" type="submit" value="Go!" />
+      </span>
+    </div>
+  </form>
+</template>
