@@ -1,7 +1,11 @@
 Router.configure({
   layoutTemplate: 'applicationLayout',
   waitOn: function () {
-    return [Meteor.subscribe("allUserData")];
+    return [
+      Meteor.subscribe("allUserData"),
+      Meteor.subscribe('websites'),
+      Meteor.subscribe('votes')
+    ];
   }
 });
 
@@ -35,6 +39,8 @@ Router.route('/websites/:_id', function () {
     to: "main",
     data: function () {
       var websiteId = this.params._id;
+      Meteor.subscribe("comments", this.params._id);
+
       return _.extend({},
                       Websites.findOne({_id: websiteId}),
                       { comments: Comments.find({ website_id: websiteId }, { sort: { createdOn: -1 } }) });
