@@ -10,6 +10,6 @@ Meteor.publish("votes", function () {
   return Votes.find({});
 });
 
-Meteor.publish("comments", function () {
-  return Comments.find({});
+Meteor.publish("comments", function (website_id) {
+  return Comments.find({ website_id: website_id });
 });
