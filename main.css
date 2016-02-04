@@ -8,6 +8,11 @@ ol.website-list {
 	counter-reset: website-counter;
 }
 
+ul.recommendation-list {
+  padding: 0;
+  list-style: none;
+}
+
 .website-title:before {
 	counter-increment: website-counter;
   content: counter(website-counter);
@@ -19,4 +24,3 @@ ol.website-list {
 .comment-date {
   font-size: 0.85em;
 }
-

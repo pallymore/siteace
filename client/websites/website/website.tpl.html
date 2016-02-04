@@ -5,20 +5,63 @@
       Back
     </a>
     <hr />
-    <h1>{{title}}</h1>
-    <p>
-      <a href="{{url}}" target="_blank" title="{{title}}">{{url}}</a>
-    </p>
-    <blockquote>
-      {{description}}
-    </blockquote>
-    <p>
-      {{> rating_buttons}}
-      <br />
-      {{> rating_timestamp}}
-    </p>
-    <hr />
-    {{> comments}}
+    <div class="row">
+      <div class="col-md-8">
+        <h1>{{title}}</h1>
+        <p>
+          <a href="{{url}}" target="_blank" title="{{title}}">{{url}}</a>
+        </p>
+        <blockquote>
+          {{description}}
+        </blockquote>
+        <p>
+          {{> rating_buttons}}
+          <br />
+          {{> rating_timestamp}}
+        </p>
+        <hr />
+        {{> comments}}
+      </div>
+      {{#if hasRecommendations}}
+        {{> recommendations}}
+      {{/if}}
+    </div>
   </div>
 </template>
 
+<template name="recommendations">
+  <div class="col-md-4 recommendations">
+    <h4>You may also like...</h4>
+    <br />
+    <ul class="recommendation-list">
+      {{#each recommendations}}
+        {{> recommended_website}}
+      {{/each}}
+    </ul>
+  </div>
+</template>
+
+<template name="recommended_website">
+  <li class="website-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a href="/websites/{{_id}}">
+            {{title}}
+          </a>
+        </h3>
+      </div>
+      <div class="panel-body">
+        <p>
+          <a href="{{url}}" target="_blank" title="{{title}}">{{url}}</a>
+        </p>
+        <p>
+          {{description}}
+        </p>
+      </div>
+      <div class="panel-footer">
+        <span class="website-added-date">{{createdOn}}</span>
+      </div>
+    </div>
+  </li>
+</template>
